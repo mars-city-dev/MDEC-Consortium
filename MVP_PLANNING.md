@@ -39,13 +39,13 @@ Analyzes any file/dataset and gives it a quality score (0-100) based on:
 ### Week 1 Deliverable
 ```bash
 mdec-score my_data.json
-# Output: 
+# Output:
 # MDEC Quality Score: 87/100
 # ✅ Completeness: 95/100
 # ⚠️  Consistency: 75/100
 # ✅ Accuracy: 92/100
 # ✅ Richness: 85/100
-# 
+#
 # Recommendations:
 # - Fix date format inconsistencies (ISO8601 required)
 # - Add 'author' field to 3 records
