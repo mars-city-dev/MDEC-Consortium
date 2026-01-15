@@ -50,6 +50,15 @@ MDEC-Consortium/
 - **[Certification Framework](certification/MDEC_Certification_Framework.md)** - Certification programs
 - **[Global Standards Toolkit](tools/MDEC_Global_Standards_Toolkit.ps1)** - Automation tools
 
+## 🚀 **ACTIVE INITIATIVE - Making It Real**
+
+**Status:** 🟢 **BUILDING** - Daily Progress Committed (Started Jan 15, 2026)
+
+- **[Daily Progress Tracker](DAILY_PROGRESS_TRACKER.md)** - See what's happening every day
+- **[MVP Planning](MVP_PLANNING.md)** - The 7-day sprint to ship something real
+- **Goal:** Transform MDEC from vision → working global standard
+- **Accountability:** GitHub Copilot + The Architect partnership
+
 ## 🤝 Contributing
 
 We welcome contributions from organizations and individuals committed to metadata excellence. See our [Contributing Guide](docs/CONTRIBUTING.md) for details.
