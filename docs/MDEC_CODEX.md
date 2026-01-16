@@ -317,6 +317,51 @@ Codex becomes effective upon ratification by Supreme Council.
 
 ---
 
+---
+
+## Article X: Data Warehousing & Modern Telemetry
+
+### Section 10.1: The Immutable M-ID (Metadata Identifier)
+**Informally dubbed "Titaness Mnemosyne" (The Greek Titaness of Memory), representing knowledge and the foundation for ordered thought.**
+
+#### 10.1.1 The TITANESS Ingestion System
+The overarching machine/process responsible for the genesis of order is designated **TITANESS**.
+- **Function**: The centralized Ingestion and Tagging Automation Engine.
+- **Authority**: The *only* system authorized to mint and assign a new M-ID.
+- **Role**: TITANESS generates the Mnemosyne ID, ensuring no duplicates or collisions occur across the physical/digital divide.
+- **The Spline of Truth (SSOT)**: The central registry binding the mathematical M-ID to its human-readable metadata.
+    - **The Signal**: The authoritative ledger file MUST carry the suffix `_SSOT` (e.g., `TITANESS_CENTRAL_LEDGER_SSOT.json`) to signal its status as the verified Single Source of Truth.
+    - **Transcoding**: The atomic event where an M-ID is permanently inscribed into the SSOT Ledger, officially "remembering" the Identity.
+
+#### 10.1.2 The SIGNET Naming Protocol
+The naming and asset tag system governing the internal structure of the M-ID is designated **SIGNET**.
+- **The Metadata Engram**: The M-ID owns a metadata engram, encoded with a Non-Fungible Token (NFT) design to ensure uniqueness and provenance.
+- **Asset-Creator Tag**: A mandatory naming convention within the engram that permanently links the asset to its creator.
+- **Signet Convention**: `[Name]-[DOB]-[Epoch]-[Vocation]-[Origin]`
+    - *Format*: `Name-MM-DD-YYYY-Epoch-Vocations-Continent/Country`
+    - *Example*: `Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA`
+    - **Purpose**: To provide deep, searchable context about the origin and era of the asset creator directly within the primary identifier.
+
+To maintain integrity across physical and digital realms, the **M-ID** is established as the absolute Primary Key.
+- **Definition**: A globally unique, immutable identifier assigned to every distinct data asset.
+- **Scope**: Sticks to the asset regardless of location (Vault, Cloud, NAS) or format.
+- **Requirement**: No asset shall be moved, archived, or transformed without preserving its M-ID.
+
+### Section 10.2: Data Activity Tracking (Modern Warehousing)
+MDEC adopts modern telemetry standards to ensure "Smart Datum" are traceable.
+- **Change Data Capture (CDC)**: Systems must log *deltas* (changes), not just snapshots. Every modification is an event.
+- **The "Daily Delta" Report**: A standardized operational report generated every 24 hours summarizing:
+    - **Ingress**: New assets entering the ecosystem.
+    - **Egress**: Assets archived or deleted.
+    - **Mutations**: Metadata updates or tag enhancements.
+    - **Movement**: Physical transfers (e.g., Shelf A -> Shelf B).
+
+### Section 10.3: Physical-Digital Bridging (The Vault Protocol)
+For hybrid environments (Physical Media + Digital Twins):
+- **Location Mapping**: Physical assets must be tracked via `Row` (X-axis) and `Bin` (Y-axis) coordinates linked to the M-ID.
+- **Telemetry**: Automated scanners or logging tools must record physical movements as digital events.
+- **Verification**: Periodic "Cycle Counts" (digital vs. physical audit) are required for Gold Certification.
+
 ## Appendices
 
 ### Appendix A: Technical Standards Specification
