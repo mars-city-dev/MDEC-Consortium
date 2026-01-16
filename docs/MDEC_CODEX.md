@@ -1,3 +1,16 @@
+---
+id: mdec-codex-v1.0
+category: governance
+tags: [standards, metadata, governance, consortium, excellence]
+author: MDEC Founding Council
+description: The foundational governing document establishing universal metadata excellence standards and practices for the Meta Data Excellence Consortium (MDEC), addressing the global metadata quality crisis.
+version: 1.0
+status: active
+created: 2026-01-12
+updated: 2026-01-16
+license: CC-BY-SA-4.0
+---
+
 # MDEC Codex: Global Standards for Metadata Excellence
 
 ## Preamble
