@@ -62,6 +62,123 @@ $allFiles = Get-ChildItem -Path $RootPath -File -Recurse -ErrorAction SilentlyCo
 
 Write-Host "Found $($allFiles.Count) files to potentially ingest" -ForegroundColor White
 
+# -------------------------------------------------------------------------
+# PHASE 2.5: GIT TRACKING & LICENSING PROMPTS (NEW FEATURE)
+# -------------------------------------------------------------------------
+Write-Host "`nPHASE 2.5: GIT TRACKING & LICENSING CONFIGURATION" -ForegroundColor Green
+
+# Initialize metadata collection
+$ingestionMetadata = [PSCustomObject]@{
+    git_tracking_enabled = $false
+    license_type = "Proprietary"
+    license_version = ""
+    attribution_required = $true
+    commercial_use_allowed = $false
+    derivative_works_allowed = $false
+    source_code_available = $false
+    repository_url = ""
+    project_name = ""
+    maintainer_contact = ""
+    mdec_compliance_level = "draft-mdec-metadata-excellence-00"
+    spdx_license_id = ""
+    schema_org_type = "CreativeWork"
+    dublin_core_creator = ""
+    dublin_core_publisher = ""
+    dublin_core_rights = ""
+}
+
+# User Prompts for Git Tracking
+Write-Host "GIT TRACKING CONFIGURATION:" -ForegroundColor Cyan
+$gitResponse = Read-Host "Enable Git tracking for these assets? (Y/N)"
+$ingestionMetadata.git_tracking_enabled = ($gitResponse -eq "Y" -or $gitResponse -eq "y")
+
+if ($ingestionMetadata.git_tracking_enabled) {
+    Write-Host "Git tracking ENABLED - Assets will be added to version control" -ForegroundColor Green
+} else {
+    Write-Host "Git tracking DISABLED - Assets will remain untracked" -ForegroundColor Yellow
+}
+
+# User Prompts for Licensing
+Write-Host "`nLICENSING CONFIGURATION:" -ForegroundColor Cyan
+Write-Host "Available license types:" -ForegroundColor Gray
+Write-Host "  1. Proprietary (Default)" -ForegroundColor White
+Write-Host "  2. Open Source (GPL)" -ForegroundColor White
+Write-Host "  3. Creative Commons (CC)" -ForegroundColor White
+Write-Host "  4. MIT License" -ForegroundColor White
+Write-Host "  5. Apache 2.0" -ForegroundColor White
+Write-Host "  6. BSD" -ForegroundColor White
+
+$licenseChoice = Read-Host "Select license type (1-6)"
+switch ($licenseChoice) {
+    "1" { 
+        $ingestionMetadata.license_type = "Proprietary"
+        $ingestionMetadata.commercial_use_allowed = $false
+        $ingestionMetadata.derivative_works_allowed = $false
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.spdx_license_id = "LicenseRef-Proprietary"
+    }
+    "2" { 
+        $ingestionMetadata.license_type = "GPL"
+        $licenseVersion = Read-Host "GPL Version (2/3)"
+        $ingestionMetadata.license_version = $licenseVersion
+        $ingestionMetadata.commercial_use_allowed = $true
+        $ingestionMetadata.derivative_works_allowed = $true
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.source_code_available = $true
+        $ingestionMetadata.spdx_license_id = "GPL-$licenseVersion.0-only"
+    }
+    "3" { 
+        $ingestionMetadata.license_type = "Creative Commons"
+        $ccType = Read-Host "CC Type (BY/BY-SA/BY-ND/BY-NC/BY-NC-SA/BY-NC-ND)"
+        $ingestionMetadata.license_version = $ccType
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.commercial_use_allowed = -not ($ccType -match "NC")
+        $ingestionMetadata.derivative_works_allowed = -not ($ccType -match "ND")
+        $ingestionMetadata.spdx_license_id = "CC-$ccType-4.0"
+    }
+    "4" { 
+        $ingestionMetadata.license_type = "MIT"
+        $ingestionMetadata.commercial_use_allowed = $true
+        $ingestionMetadata.derivative_works_allowed = $true
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.spdx_license_id = "MIT"
+    }
+    "5" { 
+        $ingestionMetadata.license_type = "Apache-2.0"
+        $ingestionMetadata.commercial_use_allowed = $true
+        $ingestionMetadata.derivative_works_allowed = $true
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.source_code_available = $true
+        $ingestionMetadata.spdx_license_id = "Apache-2.0"
+    }
+    "6" { 
+        $ingestionMetadata.license_type = "BSD"
+        $bsdType = Read-Host "BSD Type (2-Clause/3-Clause)"
+        $ingestionMetadata.license_version = $bsdType
+        $ingestionMetadata.commercial_use_allowed = $true
+        $ingestionMetadata.derivative_works_allowed = $true
+        $ingestionMetadata.attribution_required = $true
+        $ingestionMetadata.spdx_license_id = "BSD-$bsdType"
+    }
+}
+
+# Additional metadata prompts
+$ingestionMetadata.project_name = Read-Host "Project name (optional)"
+$ingestionMetadata.maintainer_contact = Read-Host "Maintainer contact (optional)"
+$ingestionMetadata.repository_url = Read-Host "Repository URL (optional)"
+
+# Dublin Core and Schema.org enrichment
+$ingestionMetadata.dublin_core_creator = Read-Host "Creator/Author (for Dublin Core metadata)"
+$ingestionMetadata.dublin_core_publisher = Read-Host "Publisher (optional)"
+$ingestionMetadata.dublin_core_rights = "$($ingestionMetadata.license_type) $($ingestionMetadata.license_version)".Trim()
+
+Write-Host "`nCONFIGURATION SUMMARY:" -ForegroundColor Cyan
+Write-Host "  Git Tracking: $(if($ingestionMetadata.git_tracking_enabled){'ENABLED'}else{'DISABLED'})" -ForegroundColor $(if($ingestionMetadata.git_tracking_enabled){'Green'}else{'Yellow'})
+Write-Host "  License: $($ingestionMetadata.license_type) $($ingestionMetadata.license_version)" -ForegroundColor White
+Write-Host "  Commercial Use: $(if($ingestionMetadata.commercial_use_allowed){'ALLOWED'}else{'RESTRICTED'})" -ForegroundColor $(if($ingestionMetadata.commercial_use_allowed){'Green'}else{'Red'})
+Write-Host "  Derivative Works: $(if($ingestionMetadata.derivative_works_allowed){'ALLOWED'}else{'RESTRICTED'})" -ForegroundColor $(if($ingestionMetadata.derivative_works_allowed){'Green'}else{'Red'})
+Write-Host "  SPDX ID: $($ingestionMetadata.spdx_license_id)" -ForegroundColor Gray
+
 $manifestEntries = @()
 
 if ($GenerateManifest) {
@@ -84,10 +201,30 @@ if ($GenerateManifest) {
             "quality_score" = $q_score
             "rfc_compliance" = "draft-mdec-metadata-excellence-00"
             "generated_at" = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssZ")
+            
+            # Git Tracking & Licensing Metadata
+            "git_tracking_enabled" = $ingestionMetadata.git_tracking_enabled
+            "license_type" = $ingestionMetadata.license_type
+            "license_version" = $ingestionMetadata.license_version
+            "attribution_required" = $ingestionMetadata.attribution_required
+            "commercial_use_allowed" = $ingestionMetadata.commercial_use_allowed
+            "derivative_works_allowed" = $ingestionMetadata.derivative_works_allowed
+            "source_code_available" = $ingestionMetadata.source_code_available
+            "repository_url" = $ingestionMetadata.repository_url
+            "project_name" = $ingestionMetadata.project_name
+            "maintainer_contact" = $ingestionMetadata.maintainer_contact
+            
+            # Standards Compliance
+            "mdec_compliance_level" = $ingestionMetadata.mdec_compliance_level
+            "spdx_license_id" = $ingestionMetadata.spdx_license_id
+            "schema_org_type" = $ingestionMetadata.schema_org_type
+            "dublin_core_creator" = $ingestionMetadata.dublin_core_creator
+            "dublin_core_publisher" = $ingestionMetadata.dublin_core_publisher
+            "dublin_core_rights" = $ingestionMetadata.dublin_core_rights
         }
         
         $manifestEntries += $entry
-        Write-Host "  [+] Ingested: $($file.Name) | Score: $q_score" -ForegroundColor Gray
+        Write-Host "  [+] Ingested: $($file.Name) | Score: $q_score | Git: $(if($ingestionMetadata.git_tracking_enabled){'TRACKED'}else{'UNTRACKED'})" -ForegroundColor Gray
     }
     
     if (-not $DryRun) {
@@ -96,6 +233,46 @@ if ($GenerateManifest) {
         $json | Set-Content $manifestPath
         Write-Host "MANIFEST SAVED: $manifestPath" -ForegroundColor Green
     }
+}
+
+# -------------------------------------------------------------------------  
+# PHASE 2.6: GIT TRACKING EXECUTION (if enabled)
+# -------------------------------------------------------------------------
+if ($ingestionMetadata.git_tracking_enabled -and -not $DryRun) {
+    Write-Host "`nPHASE 2.6: GIT TRACKING EXECUTION" -ForegroundColor Green
+    
+    # Check if we're in a Git repository
+    $gitDir = Join-Path $RootPath ".git"
+    if (Test-Path $gitDir) {
+        Write-Host "Git repository detected. Adding files..." -ForegroundColor Cyan
+        
+        # Add all files that were ingested
+        foreach ($file in $allFiles) {
+            $relativePath = $file.FullName.Substring($RootPath.Length).TrimStart("\")
+            try {
+                & git add $relativePath 2>$null
+                Write-Host "  [+] Git add: $relativePath" -ForegroundColor Gray
+            } catch {
+                Write-Host "  [-] Failed to add: $relativePath" -ForegroundColor Red
+            }
+        }
+        
+        # Add the manifest
+        $manifestRelativePath = "mdec_manifest.json"
+        try {
+            & git add $manifestRelativePath 2>$null
+            Write-Host "  [+] Git add: $manifestRelativePath" -ForegroundColor Gray
+        } catch {
+            Write-Host "  [-] Failed to add manifest" -ForegroundColor Red
+        }
+        
+        Write-Host "Git tracking complete. Run 'git commit' to finalize." -ForegroundColor Green
+    } else {
+        Write-Host "WARNING: No Git repository found at $RootPath" -ForegroundColor Yellow
+        Write-Host "To enable Git tracking, initialize a repository first: git init" -ForegroundColor Yellow
+    }
+} elseif ($ingestionMetadata.git_tracking_enabled -and $DryRun) {
+    Write-Host "`nPHASE 2.6: GIT TRACKING (DRY RUN - Would add $($allFiles.Count) files)" -ForegroundColor Yellow
 }
 
 # -------------------------------------------------------------------------
