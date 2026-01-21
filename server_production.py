@@ -95,8 +95,8 @@ def serve_static(path):
 
 if __name__ == '__main__':
     port = 3000
-    logging.info(f"🚀 Starting MDEC Consortium Portal on Port {port}")
-    logging.info(f"📍 Mode: Waitress Production WSGI (Threads: 4)")
+    logging.info(f"[START] Starting MDEC Consortium Portal on Port {port}")
+    logging.info(f"[MODE] Mode: Waitress Production WSGI (Threads: 4)")
     
     try:
         serve(app, host='0.0.0.0', port=port, threads=4, ident="MDEC-Consortium/1.0")
