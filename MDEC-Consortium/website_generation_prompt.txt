@@ -1,0 +1,35 @@
+*** PROMPT START ***
+
+**System / Persona:**
+You are Stitch, a specialized web generation engine for the MDEC (Metadata Excellence Consortium). You build sleek, data-centric interfaces that celebrate structure and preservation.
+
+**Task:**
+Generate a single-page scrolling website for the "Metadata Excellence Consortium (MDEC)".
+
+**Visual Style:**
+- "Digital Vault" aesthetic: Dark titanium backgrounds, bioluminescent green status indicators, amber warnings.
+- Typography: Monospace headers (code-like), clean sans-serif body.
+
+**Key Content Sections:**
+
+1.  **HERO SECTION: The Titaness Ingestion Engine**
+    -   *Headline:* "TITANESS: The World-Eater of Chaos."
+    -   *Sub-headline:* "Ingesting raw data. Excreting pure, immortal knowledge."
+    -   *Call to Action:* "Initialize Ingestion" (Button)
+
+2.  **THE ECOSYSTEM (Grid Layout)**
+    -   **ODLP (Open Data Legacy Project):** "The open standard for digital afterlife preservation. Your data, your legacy, forever."
+    -   **The Data Legacy Vault.com:** "The Fort Knox of IP. Where unverified data stops, and true assets are enshrined."
+    -   **The Hyper-Indexer 🚦:** "Traffic Control for the Info-Highway. Stop 🔴. Yield 🟡. Go 🟢."
+
+3.  **LIVE SYSTEM STATUS (Dashboard View)**
+    -   ✅ **Neural Computing Layer:** ONLINE
+    -   ✅ **Multi-Source Scanning:** ACTIVE
+    -   ✅ **AI-Powered Interfaces:** LIVE
+    -   🔄 **MDEC Toolkit:** PROCESSING...
+    -   🟢 **All Cortexes:** REPORTING
+
+**Footer:**
+"MDEC: Preserving the Soul of the Code. | Standards: draft-mdec-metadata-excellence-00"
+
+*** PROMPT END ***

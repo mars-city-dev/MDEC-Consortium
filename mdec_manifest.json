@@ -1,0 +1,272 @@
+[
+    {
+        "m-id":  "urn:mdec:48766309-c41e-4a3f-9aa4-44a61eec1398",
+        "file_name":  ".gitignore",
+        "relative_path":  "\\.gitignore",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:f9298988-b339-4046-826a-f5640aeb062d",
+        "file_name":  "DAILY_PROGRESS_TRACKER.md",
+        "relative_path":  "\\DAILY_PROGRESS_TRACKER.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:61897e70-1ef8-4fdf-a657-02b312c0b3aa",
+        "file_name":  "draft-mdec-metadata-excellence-00.txt",
+        "relative_path":  "\\draft-mdec-metadata-excellence-00.txt",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:cb7272e0-3384-465a-bf44-f48957363ab8",
+        "file_name":  "index.html",
+        "relative_path":  "\\index.html",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:24ad15ca-34bc-4684-8a31-19bfbd82ac04",
+        "file_name":  "LICENSE",
+        "relative_path":  "\\LICENSE",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:ccb01e34-4100-4677-92bd-6918ab790e98",
+        "file_name":  "MDEC_RFC_MAPPING.md",
+        "relative_path":  "\\MDEC_RFC_MAPPING.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:71ecba44-486d-4e1c-af0e-9f7a23f7a194",
+        "file_name":  "MVP_PLANNING.md",
+        "relative_path":  "\\MVP_PLANNING.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:a31f99d1-3399-45e6-8e52-2d082b03b12e",
+        "file_name":  "README.md",
+        "relative_path":  "\\README.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:087f8acd-296c-40f7-a078-3948b92f0317",
+        "file_name":  "TITANESS_CENTRAL_LEDGER_SSOT.json",
+        "relative_path":  "\\TITANESS_CENTRAL_LEDGER_SSOT.json",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:3f97148d-6fbb-4b71-8330-90ad12987936",
+        "file_name":  "TITANESS_INGESTION_ENGINE.ps1",
+        "relative_path":  "\\TITANESS_INGESTION_ENGINE.ps1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:55183695-b265-4228-b288-cabc02321397",
+        "file_name":  "TITANESS_REGISTRY.log",
+        "relative_path":  "\\TITANESS_REGISTRY.log",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:9132450b-87ec-4165-a4a8-ac0c0f1e8ffa",
+        "file_name":  "APOLLO_Technical_Specification.md",
+        "relative_path":  "\\docs\\APOLLO_Technical_Specification.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:e09e1661-5c5f-4025-bb52-118aea680e59",
+        "file_name":  "APOLLO_The_Metadata_Muse_Charter.md",
+        "relative_path":  "\\docs\\APOLLO_The_Metadata_Muse_Charter.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:82b159f6-140c-46ea-a40d-93c071323b97",
+        "file_name":  "MDEC_CODEX.md",
+        "relative_path":  "\\docs\\MDEC_CODEX.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:2343f5f1-63ec-471d-904d-4ca277e0e9fd",
+        "file_name":  "META_DATA_EXCELLENCE_CONSORTIUM.md",
+        "relative_path":  "\\docs\\META_DATA_EXCELLENCE_CONSORTIUM.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:baef88a4-b537-44bf-b5f0-0ac8238ea791",
+        "file_name":  "SPLINE_288_MDEC_LAUNCH_ANNOUNCEMENT.md",
+        "relative_path":  "\\docs\\SPLINE_288_MDEC_LAUNCH_ANNOUNCEMENT.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:6fada5d8-5c9b-4c3d-9b46-e0fa41babbf9",
+        "file_name":  "add_codex_article_x.py",
+        "relative_path":  "\\tools\\add_codex_article_x.py",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:69be68c9-46ef-4813-9a8f-ae0070906e74",
+        "file_name":  "README.md",
+        "relative_path":  "\\tools\\README.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:00615b23-7442-43b0-b469-1f9385642c3c",
+        "file_name":  "MDEC_AI_AutoTagger.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_AI_AutoTagger.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:af97ad61-9e0b-4e01-a02b-0ae47367e202",
+        "file_name":  "mdec_auto_validator.py",
+        "relative_path":  "\\tools\\Core\\mdec_auto_validator.py",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:05a7599a-326d-4b61-a05a-3ca3d391b357",
+        "file_name":  "MDEC_Category_Mapper.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_Category_Mapper.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:7e822d97-bd5b-461c-afad-6e0eda093751",
+        "file_name":  "MDEC_Phase3_Orchestrator.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_Phase3_Orchestrator.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:3c83cb06-2dd9-4649-ac6e-5f805ecf05e2",
+        "file_name":  "MDEC_Predictive_Categorizer.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_Predictive_Categorizer.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:fa4925c7-f3df-4f19-9c40-fa39d3c6b56a",
+        "file_name":  "mdec_quality_scorer.py",
+        "relative_path":  "\\tools\\Core\\mdec_quality_scorer.py",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:40cc8619-90b0-44f6-b15d-6fa1480e5455",
+        "file_name":  "MDEC_SelfHealing_Corrector.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_SelfHealing_Corrector.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:8c3e97b3-f304-426a-ada9-4e9e7f595199",
+        "file_name":  "MDEC_Tagging_Taxonomy.psm1",
+        "relative_path":  "\\tools\\Core\\MDEC_Tagging_Taxonomy.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:879e2ea7-2936-41fa-99ed-d4c0063ac0a7",
+        "file_name":  "TITANESS_Signet_Minter.py",
+        "relative_path":  "\\tools\\Core\\TITANESS_Signet_Minter.py",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:552bec55-9f3e-4894-ae4c-2c31f4425641",
+        "file_name":  "MDEC_Implementation_Example.ps1",
+        "relative_path":  "\\tools\\Examples\\MDEC_Implementation_Example.ps1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:cdaa6375-294f-48f7-8226-20afca88bd32",
+        "file_name":  "MDEC_Standards_v1.0.0.md",
+        "relative_path":  "\\tools\\Standards\\MDEC_Standards_v1.0.0.md",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    },
+    {
+        "m-id":  "urn:mdec:e68c75f9-f6a2-4cdb-b8e8-e7d568631d41",
+        "file_name":  "MDEC_Validation_Toolkit.psm1",
+        "relative_path":  "\\tools\\Validation\\MDEC_Validation_Toolkit.psm1",
+        "signet_creator":  "Christopher-Olds-07-14-1962-20xx-Engineer-Musician-Author-Poet-USA",
+        "quality_score":  "0.98",
+        "rfc_compliance":  "draft-mdec-metadata-excellence-00",
+        "generated_at":  "2026-01-16T11:28:26Z"
+    }
+]

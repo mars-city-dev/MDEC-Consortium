@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Data Legacy Project | LAN Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --burnt-orange: #CC7722;
+            --soft-orange: #F4A460;
+            --pastel-bg: #FFF9F5;
+            --pastel-accent: #FFE5D9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--pastel-bg);
+            color: #4A4A4A;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(204, 119, 34, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(204, 119, 34, 0.1);
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, #CC7722 0%, #E9967A 100%);
+        }
+
+        .status-pill {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 orange-gradient rounded-xl flex items-center justify-center text-white shadow-lg">
+                <i class="fas fa-vault text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-[#8B4513] leading-none">ODLP</h1>
+                <p class="text-[10px] text-orange-600 font-semibold uppercase tracking-widest">Open Data Legacy Project</p>
+            </div>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+            <a href="#" class="hover:text-orange-700 transition">Dashboard</a>
+            <a href="#" class="hover:text-orange-700 transition">Consortium</a>
+            <a href="#" class="hover:text-orange-700 transition">Metadata Stats</a>
+            <a href="#" class="hover:text-orange-700 transition">Settings</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="status-pill bg-green-100 text-green-700 border border-green-200">LAN Online</span>
+            <div class="w-8 h-8 rounded-full bg-orange-200 border-2 border-white overflow-hidden shadow-sm">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chris" alt="Avatar">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="max-w-7xl mx-auto px-6 py-12">
+        <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-orange-50 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Establishing <span class="text-orange-600">Metadata Excellence</span> for the Future.</h2>
+                <p class="text-gray-500 text-lg mb-8 leading-relaxed">Welcome to the ODLP LAN Portal. This is the central hub for Mars City Unity, managing your MDEC standards and the Data Legacy Vault.</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="px-6 py-3 bg-orange-600 text-white rounded-2xl font-semibold hover:bg-orange-700 transition shadow-lg shadow-orange-200">
+                        Launch MDEC Toolkit
+                    </button>
+                    <button class="px-6 py-3 bg-orange-50 text-orange-700 rounded-2xl font-semibold hover:bg-orange-100 transition border border-orange-200">
+                        View Documentation
+                    </button>
+                </div>
+            </div>
+            <!-- Decorative Elements -->
+            <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute bottom-[-20px] left-[50%] w-32 h-32 bg-orange-200 rounded-full blur-2xl opacity-30"></div>
+        </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="max-w-7xl mx-auto px-6 pb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- [ACTIVE] Section -->
+        <div class="glass-card rounded-3xl p-6 border-l-4 border-l-orange-500">
+            <div class="flex justify-between items-start mb-6">
+                <div class="p-3 bg-orange-100 rounded-2xl text-orange-700">
+                    <i class="fas fa-sync text-xl"></i>
+                </div>
+                <span class="status-pill bg-orange-50 text-orange-600">Active Syncing</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">[ACTIVE]_MDEC_Consortium</h3>
+            <p class="text-sm text-gray-500 mb-6">Real-time governance, standard drafts, and current outreach initiatives.</p>
+            <ul class="space-y-3 mb-8">
+                <li class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-folder-open w-6 text-orange-300"></i> 01_GOVERNANCE
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-folder-open w-6 text-orange-300"></i> 02_STANDARDS
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-folder-open w-6 text-orange-300"></i> 04_TOOLKIT
+                </li>
+            </ul>
+            <a href="#" class="text-orange-600 font-bold text-sm hover:underline">Open Sync Directory <i class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+
+        <!-- [VAULT] Section -->
+        <div class="glass-card rounded-3xl p-6 border-l-4 border-l-stone-400">
+            <div class="flex justify-between items-start mb-6">
+                <div class="p-3 bg-stone-100 rounded-2xl text-stone-700">
+                    <i class="fas fa-box-archive text-xl"></i>
+                </div>
+                <span class="status-pill bg-stone-50 text-stone-600">Legacy Store</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">[VAULT]_DLV_User_Archives</h3>
+            <p class="text-sm text-gray-500 mb-6">MDEC-Certified personal data archives. Read-only, permanent preservation.</p>
+            <div class="grid grid-cols-2 gap-2 mb-8">
+                <div class="text-[11px] bg-white p-2 rounded-lg border border-stone-100 text-stone-500">CAT_01 Docs</div>
+                <div class="text-[11px] bg-white p-2 rounded-lg border border-stone-100 text-stone-500">CAT_02 Media</div>
+                <div class="text-[11px] bg-white p-2 rounded-lg border border-stone-100 text-stone-500">CAT_03 Data</div>
+                <div class="text-[11px] bg-white p-2 rounded-lg border border-stone-100 text-stone-500">CAT_07 Comm</div>
+            </div>
+            <a href="#" class="text-stone-600 font-bold text-sm hover:underline">Browse the Vault <i class="fas fa-shield-halved ml-1"></i></a>
+        </div>
+
+        <!-- [RAW] Section -->
+        <div class="glass-card rounded-3xl p-6 border-l-4 border-l-red-300">
+            <div class="flex justify-between items-start mb-6">
+                <div class="p-3 bg-red-50 rounded-2xl text-red-700">
+                    <i class="fas fa-bolt-lightning text-xl"></i>
+                </div>
+                <span class="status-pill bg-red-50 text-red-600">Uncertified</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">[RAW]_Ingestion_Zone</h3>
+            <p class="text-sm text-gray-500 mb-6">Landing area for uncatalogued data. Requires MDEC Toolkit validation.</p>
+            <div class="bg-red-50/50 p-4 rounded-2xl mb-8">
+                <div class="flex justify-between text-[11px] mb-1">
+                    <span class="font-bold text-red-700">Quality Score Alert</span>
+                    <span class="text-red-600">0% Certified</span>
+                </div>
+                <div class="w-full bg-white h-1.5 rounded-full">
+                    <div class="bg-red-300 h-1.5 rounded-full" style="width: 15%"></div>
+                </div>
+            </div>
+            <a href="#" class="text-red-700 font-bold text-sm hover:underline">Start Audit Process <i class="fas fa-microscope ml-1"></i></a>
+        </div>
+
+    </main>
+
+    <!-- Footer Information -->
+    <footer class="max-w-7xl mx-auto px-6 py-10 border-t border-orange-100 text-center">
+        <p class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-2">Metadata Excellence Consortium (MDEC) &copy; 2026</p>
+        <p class="text-xs text-gray-400">Powered by Mars City Unity | System Version 1.0.0 "Codex Alpha"</p>
+    </footer>
+
+    <script>
+        // Simple UI Interaction for the portal
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Future expansion: Trigger hover effects or sound cues
+            });
+        });
+
+        console.log("ODLP Portal Initialized. Version 1.0.0. Monitoring LAN for MDEC Toolkit activity...");
+    </script>
+</body>
+</html>
