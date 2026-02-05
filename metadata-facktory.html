@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Metadata Faktory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Share+Tech+Mono&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        steam: {
+                            dark: '#0f0f13',
+                            panel: '#1a1a20',
+                            bronze: '#cd7f32',
+                            gold: '#d4af37',
+                            copper: '#b87333',
+                            accent: '#c0392b',
+                            text: '#a8a8b3',
+                            term: '#33ff00'
+                        }
+                    },
+                    fontFamily: {
+                        header: ['Rye', 'serif'],
+                        body: ['Cinzel', 'serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'gear-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232a2a35' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Steampunk Customizations */
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a20 0%, #000000 100%);
+            color: #d4af37;
+        }
+
+        .rivet-panel {
+            background: linear-gradient(145deg, #1e1e24, #141418);
+            border: 2px solid #333;
+            box-shadow: inset 0 0 20px #000, 0 5px 15px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .rivet-panel::before, .rivet-panel::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 30% 30%, #777, #222);
+            border-radius: 50%;
+            box-shadow: 1px 1px 2px black;
+            z-index: 10;
+        }
+        .rivet-panel::before { top: 8px; left: 8px; }
+        .rivet-panel::after { top: 8px; right: 8px; }
+        .rivet-bottom::before { content: ''; position: absolute; bottom: 8px; left: 8px; width: 8px; height: 8px; background: radial-gradient(circle at 30% 30%, #777, #222); border-radius: 50%; }
+        .rivet-bottom::after { content: ''; position: absolute; bottom: 8px; right: 8px; width: 8px; height: 8px; background: radial-gradient(circle at 30% 30%, #777, #222); border-radius: 50%; }
+
+        .crt-screen {
+            background-color: #0a0a0a;
+            border: 4px solid #333;
+            border-radius: 4px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+            font-family: 'Share Tech Mono', monospace;
+            color: #33ff00;
+            text-shadow: 0 0 5px #33ff00;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .crt-scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(32, 255, 0, 0.05) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 10s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+
+        .brass-btn {
+            background: linear-gradient(180deg, #d4af37 0%, #b8860b 100%);
+            border: 2px solid #5c4008;
+            color: #2c1a06;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+            box-shadow: 0 4px 0 #5c4008, 0 5px 10px rgba(0,0,0,0.5);
+            transition: all 0.1s;
+        }
+        .brass-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #5c4008, inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 120px;
+            height: 60px;
+            overflow: hidden;
+            background: #111;
+            border-radius: 60px 60px 0 0;
+            border: 4px solid #554433;
+        }
+        .gauge-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            height: 50px;
+            background: red;
+            transform-origin: bottom center;
+            transform: rotate(-90deg);
+            transition: transform 1s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+
+        .gear-spin { animation: spin 4s linear infinite; }
+        .gear-spin-slow { animation: spin 8s linear infinite reverse; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #554433; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-steam-text bg-gear-pattern selection:bg-steam-gold selection:text-black">
+
+    <!-- TOP NAV: PIPES AND TITLE -->
+    <header class="h-20 bg-steam-dark border-b-4 border-steam-copper shadow-lg z-20 flex items-center justify-between px-6 relative">
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-steam-gold to-transparent opacity-50"></div>
+
+        <div class="flex items-center gap-4">
+            <i class="fas fa-cogs text-4xl text-steam-gold gear-spin-slow"></i>
+            <div>
+                <h1 class="font-header text-3xl text-steam-gold tracking-wider drop-shadow-lg">THE METADATA FAKTORY™</h1>
+                <div class="text-xs text-steam-bronze font-mono tracking-[0.3em]">EST. 2026 • FEDERATION STANDARD</div>
+            </div>
+        </div>
+
+        <nav class="flex gap-4">
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="brass-btn font-header px-6 py-2 rounded uppercase text-sm font-bold opacity-100 hover:brightness-110">Floor Control</button>
+            <button onclick="switchTab('config')" id="btn-config" class="bg-steam-panel border border-steam-bronze text-steam-bronze px-6 py-2 rounded uppercase text-sm font-bold font-header hover:bg-steam-copper hover:text-black transition-colors">Schematics</button>
+            <button onclick="switchTab('manifest')" id="btn-manifest" class="bg-steam-panel border border-steam-bronze text-steam-bronze px-6 py-2 rounded uppercase text-sm font-bold font-header hover:bg-steam-copper hover:text-black transition-colors">Manifest</button>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex overflow-hidden relative">
+
+        <!-- LEFT SIDE: CONTROLS & GAUGES -->
+        <aside class="w-80 bg-[#121215] border-r-4 border-steam-dark flex flex-col p-4 gap-6 shadow-2xl z-10">
+
+            <!-- Pressure Gauge -->
+            <div class="rivet-panel rivet-bottom p-4 rounded bg-steam-panel flex flex-col items-center">
+                <div class="text-steam-copper font-body text-sm mb-2 uppercase tracking-widest border-b border-steam-copper pb-1 w-full text-center">System Pressure</div>
+                <div class="gauge-container mt-2">
+                    <div class="gauge-needle" id="pressure-needle"></div>
+                </div>
+                <div class="flex justify-between w-full text-xs text-gray-500 font-mono mt-1 px-4">
+                    <span>0</span><span>PSI</span><span>100</span>
+                </div>
+            </div>
+
+            <!-- Control Levers -->
+            <div class="rivet-panel rivet-bottom p-4 rounded bg-steam-panel flex flex-col gap-4">
+                <div class="text-steam-copper font-body text-sm mb-1 uppercase tracking-widest border-b border-steam-copper pb-1 text-center">Engine Operations</div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono text-steam-gold">IGNITION</span>
+                    <button onclick="toggleEngine()" id="engine-btn" class="w-12 h-6 bg-red-900 rounded-full relative border-2 border-red-950 transition-colors shadow-inner">
+                        <div id="engine-switch" class="absolute left-1 top-0.5 w-4 h-4 bg-gray-400 rounded-full shadow transition-transform"></div>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-mono text-steam-gold">AUTO-SORT</span>
+                    <button class="w-12 h-6 bg-green-900 rounded-full relative border-2 border-green-950 transition-colors shadow-inner">
+                        <div class="absolute right-1 top-0.5 w-4 h-4 bg-steam-gold rounded-full shadow"></div>
+                    </button>
+                </div>
+
+                <div class="mt-2">
+                    <button onclick="runBatch()" class="w-full brass-btn py-3 font-header font-bold text-lg rounded shadow-lg active:shadow-none transition-transform hover:scale-[1.02]">
+                        <i class="fas fa-play mr-2"></i> RUN BATCH
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="rivet-panel rivet-bottom p-4 rounded bg-steam-panel flex-1">
+                <div class="text-steam-copper font-body text-sm mb-4 uppercase tracking-widest border-b border-steam-copper pb-1 text-center">Yield Output</div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-mono text-steam-gold mb-1">
+                            <span>GOLD TIER</span>
+                            <span id="gold-count">042</span>
+                        </div>
+                        <div class="h-2 bg-black rounded-full overflow-hidden border border-steam-dark">
+                            <div class="h-full bg-yellow-500 w-[65%] shadow-[0_0_10px_#d4af37]"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono text-gray-400 mb-1">
+                            <span>SILVER TIER</span>
+                            <span id="silver-count">128</span>
+                        </div>
+                        <div class="h-2 bg-black rounded-full overflow-hidden border border-steam-dark">
+                            <div class="h-full bg-gray-400 w-[45%]"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono text-orange-700 mb-1">
+                            <span>BRONZE TIER</span>
+                            <span id="bronze-count">310</span>
+                        </div>
+                        <div class="h-2 bg-black rounded-full overflow-hidden border border-steam-dark">
+                            <div class="h-full bg-orange-800 w-[80%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER STAGE: VISUALIZER -->
+        <section id="tab-dashboard" class="flex-1 flex flex-col p-8 gap-8 transition-opacity duration-300">
+
+            <!-- The Conveyor Belt Visual -->
+            <div class="rivet-panel rivet-bottom p-1 rounded-lg bg-black/50 border-4 border-steam-copper h-64 relative overflow-hidden flex items-center justify-center">
+
+                <!-- Background Gearing -->
+                <i class="fas fa-cog text-[200px] text-steam-dark absolute -left-10 -bottom-10 opacity-50 gear-spin"></i>
+                <i class="fas fa-cog text-[150px] text-steam-dark absolute -right-10 -top-10 opacity-50 gear-spin-slow"></i>
+
+                <!-- Conveyor Track -->
+                <div class="w-full h-4 bg-gray-800 absolute top-1/2 transform -translate-y-1/2 border-y border-gray-600"></div>
+
+                <!-- Stations -->
+                <div class="absolute top-1/2 left-[10%] transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                    <div class="w-16 h-16 bg-gray-700 rounded border-2 border-gray-500 flex items-center justify-center shadow-[0_0_15px_rgba(0,0,0,1)]">
+                        <i class="fas fa-box-open text-2xl text-gray-400"></i>
+                    </div>
+                    <span class="mt-2 font-mono text-xs text-gray-500 bg-black px-2 py-1 border border-gray-800">INGEST</span>
+                </div>
+
+                <div class="absolute top-1/2 left-[40%] transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                    <div class="w-16 h-16 bg-steam-panel rounded-full border-2 border-steam-gold flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                        <i class="fas fa-balance-scale text-2xl text-steam-gold"></i>
+                    </div>
+                    <span class="mt-2 font-mono text-xs text-steam-gold bg-black px-2 py-1 border border-steam-copper">SCORER</span>
+                </div>
+
+                <div class="absolute top-1/2 left-[70%] transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                    <div class="w-16 h-16 bg-steam-panel rounded border-2 border-steam-accent flex items-center justify-center shadow-[0_0_20px_rgba(192,57,43,0.3)]">
+                        <i class="fas fa-stamp text-2xl text-steam-accent"></i>
+                    </div>
+                    <span class="mt-2 font-mono text-xs text-steam-accent bg-black px-2 py-1 border border-steam-accent">VALIDATOR</span>
+                </div>
+
+                <div class="absolute top-1/2 left-[90%] transform -translate-y-1/2 -translate-x-1/2 flex flex-col items-center z-10">
+                    <i class="fas fa-door-closed text-5xl text-steam-bronze drop-shadow-lg"></i>
+                </div>
+
+                <!-- Moving Items (JS Generated) -->
+                <div id="conveyor-items" class="absolute inset-0 pointer-events-none"></div>
+
+            </div>
+
+            <!-- Terminal Output -->
+            <div class="flex-1 flex flex-col gap-2">
+                <div class="flex justify-between items-end px-2">
+                    <span class="font-header text-steam-bronze text-sm">SYSTEM LOGS // TELETYPE OUTPUT</span>
+                    <span class="font-mono text-xs text-green-800 animate-pulse">● LIVE CONNECTION</span>
+                </div>
+                <div class="crt-screen flex-1 p-4 font-mono text-sm leading-relaxed" id="terminal-output">
+                    <div class="crt-scanline"></div>
+                    <div class="opacity-50">Initializing MDEC Core Protocol v1.2...</div>
+                    <div class="opacity-50">Checking Factor Pressure... OK (98 PSI)</div>
+                    <div class="opacity-50">Loading 'mdec_quality_scorer.py'... OK</div>
+                    <div class="opacity-50">Loading 'mdec_auto_validator.py'... OK</div>
+                    <div class="text-steam-gold mt-2">>> SYSTEM READY. AWAITING BATCH INPUT.</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CONFIG TAB (Hidden) -->
+        <section id="tab-config" class="hidden flex-1 p-8 flex flex-col items-center justify-center gap-4">
+             <div class="rivet-panel p-8 max-w-2xl w-full">
+                <h2 class="text-2xl font-header text-steam-gold mb-6 border-b border-steam-dark pb-2">Factory Schematics</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-black/40 border border-steam-copper rounded">
+                        <label class="block font-mono text-xs text-steam-bronze mb-1">RAW PATH</label>
+                        <input type="text" value="./INGEST_RAW" class="w-full bg-steam-dark border border-gray-700 text-steam-text px-2 py-1 font-mono text-sm">
+                    </div>
+                    <div class="p-4 bg-black/40 border border-steam-copper rounded">
+                        <label class="block font-mono text-xs text-steam-bronze mb-1">VAULT PATH</label>
+                        <input type="text" value="./MDEC_VAULT" class="w-full bg-steam-dark border border-gray-700 text-steam-text px-2 py-1 font-mono text-sm">
+                    </div>
+                </div>
+                <div class="mt-4 p-4 bg-black/40 border border-steam-copper rounded">
+                    <label class="block font-mono text-xs text-steam-bronze mb-2">VALIDATION TOLERANCE</label>
+                    <input type="range" class="w-full accent-steam-gold" min="0" max="100" value="75">
+                    <div class="flex justify-between text-xs font-mono text-gray-500 mt-1">
+                        <span>Loose</span>
+                        <span>Strict (MdEC Standard)</span>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- UI LOGIC ---
+
+        let engineRunning = false;
+
+        function switchTab(tabId) {
+            document.getElementById('tab-dashboard').classList.add('hidden');
+            document.getElementById('tab-config').classList.add('hidden');
+            // Reset buttons
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('brass-btn', 'text-black');
+                btn.classList.add('bg-steam-panel', 'text-steam-bronze');
+            });
+
+            // Activate Tab
+            const activeTab = document.getElementById('tab-' + tabId);
+            if(activeTab) activeTab.classList.remove('hidden');
+
+            // Activate Button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.remove('bg-steam-panel', 'text-steam-bronze');
+            activeBtn.classList.add('brass-btn', 'text-black');
+        }
+
+        function toggleEngine() {
+            engineRunning = !engineRunning;
+            const needle = document.getElementById('pressure-needle');
+            const btnSwitch = document.getElementById('engine-switch');
+            const term = document.getElementById('terminal-output');
+
+            if (engineRunning) {
+                needle.style.transform = "rotate(45deg)"; // High Pressure
+                btnSwitch.style.transform = "translateX(24px)";
+                btnSwitch.style.backgroundColor = "#d4af37";
+                logToTerm(">> ENGINE IGNITION SEQUENCE INITIATED...");
+                logToTerm(">> PRESSURE STABILIZING AT 95 PSI.");
+                setInterval(createParticle, 2000); // Start gentle background activity
+            } else {
+                needle.style.transform = "rotate(-90deg)"; // Zero Pressure
+                btnSwitch.style.transform = "translateX(0)";
+                btnSwitch.style.backgroundColor = "#9ca3af";
+                logToTerm(">> SHUTDOWN SEQUENCE. VENTING STEAM.");
+            }
+        }
+
+        function logToTerm(text, type='info') {
+            const term = document.getElementById('terminal-output');
+            const line = document.createElement('div');
+            const time = new Date().toLocaleTimeString('en-US', {hour12: false});
+
+            line.className = "mb-1 border-b border-green-900/30 pb-1";
+            if(type === 'error') line.className += " text-red-500";
+            if(type === 'gold') line.className += " text-yellow-400 font-bold";
+
+            line.innerHTML = `<span class="opacity-50 mr-2">[${time}]</span> ${text}`;
+            term.appendChild(line);
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function runBatch() {
+            if(!engineRunning) {
+                logToTerm("ERROR: CANNOT RUN BATCH. ENGINE IS COLD.", "error");
+                return;
+            }
+
+            logToTerm(">> STARTING BATCH PROCESS: JOB-ID #882A");
+
+            // Simulate processing 5 items
+            let count = 0;
+            const items = [
+                {name: "log_2026.md", score: 45, tier: "Bronze"},
+                {name: "titaness_core.py", score: 98, tier: "Gold"},
+                {name: "random_notes.txt", score: 12, tier: "Reject"},
+                {name: "project_plan.json", score: 82, tier: "Silver"},
+                {name: "mdec_manifest.xml", score: 96, tier: "Gold"}
+            ];
+
+            const interval = setInterval(() => {
+                if (count >= items.length) {
+                    clearInterval(interval);
+                    logToTerm(">> BATCH COMPLETE. WAITING FOR INPUT.");
+                    return;
+                }
+
+                const item = items[count];
+                spawnConveyorItem(item);
+                count++;
+            }, 1500);
+        }
+
+        function spawnConveyorItem(item) {
+            const container = document.getElementById('conveyor-items');
+            const el = document.createElement('div');
+
+            // Item Style
+            let colorClass = "bg-gray-600";
+            if (item.tier === "Gold") colorClass = "bg-yellow-500 box-shadow-gold";
+            if (item.tier === "Silver") colorClass = "bg-gray-300";
+            if (item.tier === "Bronze") colorClass = "bg-orange-700";
+            if (item.tier === "Reject") colorClass = "bg-red-800";
+
+            el.className = `absolute top-1/2 transform -translate-y-1/2 w-8 h-8 rounded border border-black shadow-lg z-20 transition-all duration-[4000ms] linear ${colorClass}`;
+            el.style.left = "0%";
+
+            container.appendChild(el);
+
+            // Animation Timeline (Simulated via timeouts)
+
+            // 1. Move to Scorer
+            setTimeout(() => {
+                el.style.left = "40%";
+                logToTerm(`SCORING: ${item.name}...`);
+            }, 100);
+
+            // 2. Calculated
+            setTimeout(() => {
+                logToTerm(` > Result: ${item.score}/100 [${item.tier}]`, item.tier === 'Gold' ? 'gold' : 'info');
+            }, 1500);
+
+            // 3. Move to Validator
+            setTimeout(() => {
+                el.style.left = "70%";
+            }, 2000);
+
+            // 4. Move to Vault/Exit
+            setTimeout(() => {
+                el.style.left = "110%";
+                setTimeout(() => el.remove(), 500);
+            }, 3500);
+        }
+
+        function createParticle() {
+            // Optional visual flair (not critical for logic)
+        }
+
+    </script>
+</body>
+</html>
