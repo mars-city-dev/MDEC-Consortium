@@ -12,7 +12,7 @@ This engine is the authoritative toolchain for generating MdEC Gold-Certified En
 
 ## Overview
 - Name: Titaness Metadata Faktory
-- Owner: Titaness Sentient Systems (Jennifer)
+- Owner: Titaness Sentient Systems mars-city-dev COlds The Architect
 - Purpose: Ingest, verify, score, and emit certified engrams for archival
 - Primary outputs: `<asset>.engram.json` (engram v2.1)
 
@@ -44,8 +44,10 @@ print(engram['certification'])
 - MdEC toolkit compatibility: `1.x` exports
 
 ## Notes & Next Steps
-- Add CI lint/test running for `tools/titaness_metadata_faktory.py` (unit tests)
-- Consider adding a UI integration to the Titaness Observability Platform to trigger the pipeline via the portal and show certification results in real-time.
+- Added: preflight configuration support via `faktory.config.json` and `--config` flag.
+- Added: CI lint workflow to check formatting and lints on PRs (`.github/workflows/ci-lint.yml`).
+- Added: `AGENTS.md` and `MAINTENANCE_PLAYBOOK.md` to define agent responsibilities and governance.
+- Next: add CI smoke checks and deploy-time validation (follow-up step), and consider a UI integration to the Titaness Observability Platform to trigger the pipeline and show certification results in real-time.
 
 ---
 

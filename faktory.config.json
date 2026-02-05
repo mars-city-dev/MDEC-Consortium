@@ -1,0 +1,8 @@
+{
+    "owner": "The Architect",
+    "owner_id": "urn:person:mars-city:the-architect",
+    "preflight": true,
+    "preflight_level": "warn",
+    "quality_threshold": 50,
+    "default_vault": "E:/MDEC_VAULT_PROOF_CONCEPT"
+}
