@@ -1,0 +1,38 @@
+name: CI - Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feat/*
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff black
+      - name: Run ruff
+        run: ruff check .
+      - name: Run black (check only)
+        run: black --check .
+
+      - name: Titaness Scribe (Metadata Faktory)
+        run: |
+          echo "Running Titaness Metadata Faktory (Report Mode)..."
+          # The Scribe runs in report-only mode during CI to audit metadata health
+          if [ -f "tools/run_faktory.py" ]; then
+            python tools/run_faktory.py --preflight --config faktory.config.json
+          else
+            echo "WARNING: tools/run_faktory.py not found. Scribe activation skipped."
+          fi
+        continue-on-error: true
