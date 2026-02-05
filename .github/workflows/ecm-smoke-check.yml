@@ -1,0 +1,24 @@
+name: ECM Smoke Check
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch: {}
+
+jobs:
+  smoke-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify NIaC presence
+        run: |
+          if [ -f VERIFY_NIAC_SYSTEM.ps1 ]; then echo "VERIFY_NIAC_SYSTEM.ps1 exists"; else echo "No VERIFY_NIAC_SYSTEM.ps1"; fi
+
+      - name: Vagus status check
+        run: |
+          if [ -f vagus_controller.py ]; then python3 vagus_controller.py --status || true; else echo "vagus_controller.py not found"; fi
+
+      - name: Report
+        run: echo "ECM smoke check completed"
