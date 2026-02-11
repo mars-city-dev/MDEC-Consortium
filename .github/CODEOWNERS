@@ -1,0 +1,16 @@
+# Teams and individuals responsible for code and docs.
+# Update these handles to real GitHub users or teams (e.g., @org/team)
+
+# Default owner for all files
+* @mars-city-dev
+
+# Docs and guides
+/docs/ @mars-city-dev
+
+# Core tools
+/tools/ @mars-city-dev
+
+# Infrastructure and CI
+.github/ @mars-city-dev
+
+# NOTE: Replace @mars-city-dev with the preferred owner handle (e.g., @the-architect) if desired.

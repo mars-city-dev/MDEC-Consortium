@@ -1,13 +1,13 @@
 
 Network Working Group                                            C. Olds
 Internet-Draft                                          Mars City Unity
-Intended status: Informational                          January 16, 2026
-Expires: July 20, 2026
+Intended status: Informational                          February 10, 2026
+Expires: August 11, 2026
 
 
              The Meta Data Excellence Consortium (MDEC):
           Standards for High-Integrity Data Legacy Vaults
-                 draft-mdec-metadata-excellence-00
+                 draft-mdec-metadata-excellence-01
 
 Abstract
 
@@ -15,8 +15,12 @@ Abstract
    framework, a rigorous extension of Dublin Core (RFC 5013) aimed at
    eliminating "non-existent or incorrect metadata practices."  It
    introduces the TITANESS ingestion protocol, the "SIGNET" naming
-   convention for deep creator provenance, and a mandatory Quality
-   Scoring algorithm for data assets.  The goal is to transform passive
+   convention for deep creator provenance, the Engram sidecar metadata format,
+   and a mandatory Quality Scoring algorithm for data assets.  In
+   addition, this revision (draft-01) formalizes the Titaness Nano-NFT
+   protocol: a lightweight cryptographic binding (Ed25519 signatures and
+   Merkle hash chaining) that imbues Engrams with provable integrity and
+   File Integrity Monitoring (FIM) capabilities. The goal is to transform passive
    digital storage into active, self-validating "Data Legacy Vaults"
    suitable for long-term knowledge preservation (e.g., 100+ years).
 
@@ -121,6 +125,31 @@ Copyright Notice
 
    A score below 0.70 (Bronze level) SHOULD trigger a rejection or
    warning flag in the ingestion pipeline.
+
+5.1.  The Engram Sidecar File
+
+   The Engram is a portable JSON sidecar stored next to an asset
+   (`<filename>.<ext>.engram.json`).  Implementations SHOULD include the
+   following fields at minimum: `m_id`, `signet`, `checksum_sha256`,
+   `rfc_conformance`, `quality_score`, `created_at`, and `provenance`.
+   Engrams MUST be produced by a TITANESS ingestion engine and SHOULD
+   include an Ed25519 `digital_signature` field signed by that
+   environment's Vault private key.  The sidecar is intentionally
+   human-readable to facilitate long-term preservation and migration.
+
+5.2.  Nano-NFT (Merkle Linking) and File Integrity Monitoring (FIM)
+
+   Engrams may be bound into a Nano-Chain maintained in the
+   `TITANESS_CENTRAL_LEDGER_SSOT.json` ledger. Each new Engram record
+   includes `previous_hash` and `block_hash` derived from SHA-256 of
+   canonicalized Engram content concatenated with the signature bytes.
+   Local validators MUST verify: (1) signature validity against the
+   stored public key, (2) `block_hash` correctness, and (3) `previous_hash`
+   matches the current chain tip. Any mismatch MUST trigger a Tamper
+   Event: the Engram SHOULD be marked CORRUPT, the asset flagged in
+   index/UI as unverified, and Vault Administrators notified.  This
+   behavior implements File Integrity Monitoring (FIM) and supports
+   audits, regulatory compliance and incident response.
 
 9.  Practical Implementation Example
 
