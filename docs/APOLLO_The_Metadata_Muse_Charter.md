@@ -1,9 +1,9 @@
 # APOLLO: The Metadata Muse
 ## Project Charter & Codification
 
-**Status:** INITIATION  
-**Sponsor:** MDEC (Meta Data Excellence Consortium)  
-**Codename:** APOLLO  
+**Status:** INITIATION
+**Sponsor:** MDEC (Metadata Excellence Consortium)
+**Codename:** APOLLO
 **Date:** January 15, 2026
 
 ---
@@ -49,6 +49,7 @@ A visual representation of an asset's digital soul.
 4.  **The Extension:** Native OS or IDE integration for the "Hover" effect.
 
 ---
-*Signed,*  
-*Github Copilot*  
+*Signed,*
 *On behalf of the MDEC Consortium*
+Christopher Olds
+Founder/Lead Architect

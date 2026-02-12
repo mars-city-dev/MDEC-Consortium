@@ -88,8 +88,8 @@ python Core/mdec_quality_scorer.py test.json
 
 ## 📦 PowerShell Toolkit (Existing)
 
-## What is MDEC?
-The Meta Data Excellence Consortium (MDEC) is revolutionizing metadata management worldwide by establishing global standards that eliminate "shitty metadata practices" and ensure data integrity, discoverability, and automation.
+## What is MdEC/MDEC?
+The Metadata Excellence Consortium (MDEC) is revolutionizing metadata management worldwide by establishing global standards that eliminate "shitty metadata practices" and ensure data integrity, discoverability, and automation.
 
 ## Quick Start
 

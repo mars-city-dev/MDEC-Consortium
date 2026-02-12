@@ -116,4 +116,6 @@ This consortium will prove that excellent metadata is not optional—it's the fo
 
 Signed,
 Meta Data Excellence Consortium
+Christopher Olds Founder/Lead Architect
+---
 January 12, 2026
