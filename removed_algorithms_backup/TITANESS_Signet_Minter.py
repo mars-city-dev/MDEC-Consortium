@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 TITANESS Signet Minter v1.0
 ===========================
@@ -93,7 +93,7 @@ def main():
     args = parser.parse_args()
 
     if args.interactive or not (args.name and args.dob and args.epoch and args.vocation and args.origin):
-        print("\n🏛️  TITANESS SIGNET MINTER SEQUENCE INITIATED 🏛️")
+        print("\n≡ƒÅ¢∩╕Å  TITANESS SIGNET MINTER SEQUENCE INITIATED ≡ƒÅ¢∩╕Å")
         print("------------------------------------------------")
         name = input("Enter Creator Name: ")
         dob = input("Enter DOB (YYYY-MM-DD): ")
@@ -111,10 +111,10 @@ def main():
         signet_string = mint_signet(name, dob, epoch, vocation, origin)
         m_id = mint_mid(signet_string)
 
-        print("\n✨ MNEMOSYNE ENGRAM GENERATED ✨")
+        print("\nΓ£¿ MNEMOSYNE ENGRAM GENERATED Γ£¿")
         print("-----------------------------")
-        print(f"🆔 M-ID (Immutable Key): {m_id}")
-        print(f"🏷️  SIGNET (Human Readable): {signet_string}")
+        print(f"≡ƒåö M-ID (Immutable Key): {m_id}")
+        print(f"≡ƒÅ╖∩╕Å  SIGNET (Human Readable): {signet_string}")
         print("-----------------------------\n")
         
         # TRANSCODING EVENT: BINDING TO THE GOLDEN LEDGER
@@ -137,7 +137,7 @@ def main():
 
         # Check for existence
         if m_id in ledger["entries"]:
-            print(f"⚠️  MEMORY EXISTS: This M-ID is already registered to: {ledger['entries'][m_id]['signet']}")
+            print(f"ΓÜá∩╕Å  MEMORY EXISTS: This M-ID is already registered to: {ledger['entries'][m_id]['signet']}")
         else:
             # THE BINDING
             payload = {
@@ -155,11 +155,11 @@ def main():
             
             with open(registry_file, 'w') as f:
                 json.dump(ledger, f, indent=4)
-            print(f"✅ TRANSCODED: M-ID has been permanently bound to the Ledger.")
-            print(f"📂 LOCATION: {os.path.abspath(registry_file)}")
+            print(f"Γ£à TRANSCODED: M-ID has been permanently bound to the Ledger.")
+            print(f"≡ƒôé LOCATION: {os.path.abspath(registry_file)}")
 
     except Exception as e:
-        print(f"\n❌ ERROR: {e}")
+        print(f"\nΓ¥î ERROR: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 MDEC Metadata Quality Scorer
 Analyzes file metadata and assigns quality scores (0-100)
@@ -208,25 +208,25 @@ class MDECQualityScorer:
         
         if scores['completeness'] < 80:
             missing = [f for f in self.required_fields if f not in metadata or not metadata[f]]
-            recs.append(f"⚠️  Add missing required fields: {', '.join(missing)}")
+            recs.append(f"ΓÜá∩╕Å  Add missing required fields: {', '.join(missing)}")
         
         if scores['consistency'] < 80:
-            recs.append("⚠️  Fix date format inconsistencies (use ISO8601: YYYY-MM-DDTHH:MM:SS)")
+            recs.append("ΓÜá∩╕Å  Fix date format inconsistencies (use ISO8601: YYYY-MM-DDTHH:MM:SS)")
             if 'tags' in metadata and not isinstance(metadata['tags'], (list, tuple)):
-                recs.append("⚠️  Convert tags to array format")
+                recs.append("ΓÜá∩╕Å  Convert tags to array format")
         
         if scores['accuracy'] < 80:
-            recs.append("⚠️  Review date logic (modified should be >= created)")
+            recs.append("ΓÜá∩╕Å  Review date logic (modified should be >= created)")
             if 'category' in metadata and len(str(metadata['category'])) < 3:
-                recs.append("⚠️  Replace generic category with specific classification")
+                recs.append("ΓÜá∩╕Å  Replace generic category with specific classification")
         
         if scores['richness'] < 60:
-            recs.append("💡 Add more descriptive tags (aim for 3-5 tags)")
+            recs.append("≡ƒÆí Add more descriptive tags (aim for 3-5 tags)")
             if 'description' not in metadata or len(str(metadata.get('description', ''))) < 50:
-                recs.append("💡 Add detailed description (50+ characters)")
+                recs.append("≡ƒÆí Add detailed description (50+ characters)")
         
         if not recs:
-            recs.append("✅ Excellent metadata! No improvements needed.")
+            recs.append("Γ£à Excellent metadata! No improvements needed.")
         
         return recs
 
@@ -236,20 +236,20 @@ def format_report(result: Dict, json_output: bool = False) -> str:
         return json.dumps(result, indent=2)
     
     if 'error' in result:
-        return f"❌ Error: {result['error']}"
+        return f"Γ¥î Error: {result['error']}"
     
     score = result['overall_score']
     scores = result['scores']
     
     # Determine grade
     if score >= 90:
-        grade = "🏆 EXCELLENT"
+        grade = "≡ƒÅå EXCELLENT"
     elif score >= 75:
-        grade = "✅ GOOD"
+        grade = "Γ£à GOOD"
     elif score >= 60:
-        grade = "⚠️  NEEDS IMPROVEMENT"
+        grade = "ΓÜá∩╕Å  NEEDS IMPROVEMENT"
     else:
-        grade = "❌ POOR"
+        grade = "Γ¥î POOR"
     
     output = [
         "",
@@ -262,10 +262,10 @@ def format_report(result: Dict, json_output: bool = False) -> str:
         f"Overall Score: {score}/100 {grade}",
         "",
         "Detailed Scores:",
-        f"  • Completeness: {scores['completeness']}/100 {'✅' if scores['completeness'] >= 80 else '⚠️'}",
-        f"  • Consistency:  {scores['consistency']}/100 {'✅' if scores['consistency'] >= 80 else '⚠️'}",
-        f"  • Accuracy:     {scores['accuracy']}/100 {'✅' if scores['accuracy'] >= 80 else '⚠️'}",
-        f"  • Richness:     {scores['richness']}/100 {'✅' if scores['richness'] >= 60 else '⚠️'}",
+        f"  ΓÇó Completeness: {scores['completeness']}/100 {'Γ£à' if scores['completeness'] >= 80 else 'ΓÜá∩╕Å'}",
+        f"  ΓÇó Consistency:  {scores['consistency']}/100 {'Γ£à' if scores['consistency'] >= 80 else 'ΓÜá∩╕Å'}",
+        f"  ΓÇó Accuracy:     {scores['accuracy']}/100 {'Γ£à' if scores['accuracy'] >= 80 else 'ΓÜá∩╕Å'}",
+        f"  ΓÇó Richness:     {scores['richness']}/100 {'Γ£à' if scores['richness'] >= 60 else 'ΓÜá∩╕Å'}",
         "",
         "Recommendations:",
     ]
@@ -276,7 +276,7 @@ def format_report(result: Dict, json_output: bool = False) -> str:
     output.extend([
         "",
         "=" * 70,
-        f"Evaluated by MDEC Quality Scorer v1.0 • {result['timestamp']}",
+        f"Evaluated by MDEC Quality Scorer v1.0 ΓÇó {result['timestamp']}",
         "=" * 70,
         ""
     ])

@@ -1,4 +1,4 @@
-"""
+﻿"""
 Execution Script for Titaness Metadata Faktory
 Purpose: Triggers the MdEC Engram Generation Pipeline (Standardized)
 """
@@ -78,10 +78,10 @@ def main():
             auto_approve=args.yes,
             operator_mode=args.operator_mode
         )
-        print('✅ Engram Generation Successful')
+        print('Γ£à Engram Generation Successful')
         print('   Path:', f"{source}.engram.json")
     except Exception as e:
-        print(f"❌ Pipeline Failure: {e}")
+        print(f"Γ¥î Pipeline Failure: {e}")
         sys.exit(1)
 
 if __name__ == '__main__':

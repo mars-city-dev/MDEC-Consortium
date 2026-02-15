@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 MDEC Auto-Validator
 Automatically validates metadata against MDEC standards and FIXES issues in real-time
@@ -342,7 +342,7 @@ def format_report(result: Dict) -> str:
         output.append("")
         
         for v in result['violations'][:10]:  # Show first 10
-            fixable = "✅ FIXED" if v['fixable'] and stats['fixes_applied'] > 0 else "⚠️  MANUAL FIX NEEDED"
+            fixable = "Γ£à FIXED" if v['fixable'] and stats['fixes_applied'] > 0 else "ΓÜá∩╕Å  MANUAL FIX NEEDED"
             output.append(f"  {v['type']}: {v['message']}")
             output.append(f"    File: {v['file']}")
             output.append(f"    Status: {fixable}")
@@ -352,18 +352,18 @@ def format_report(result: Dict) -> str:
         output.append("FIXES APPLIED:")
         output.append("")
         for fix in result['fixes_applied'][:10]:
-            output.append(f"  ✅ {fix}")
+            output.append(f"  Γ£à {fix}")
         output.append("")
     
     if result['success']:
-        output.append("✅ VALIDATION PASSED")
+        output.append("Γ£à VALIDATION PASSED")
     else:
-        output.append("⚠️  VALIDATION FAILED - Manual fixes required")
+        output.append("ΓÜá∩╕Å  VALIDATION FAILED - Manual fixes required")
     
     output.extend([
         "",
         "=" * 70,
-        f"MDEC Auto-Validator v1.0 • {result['timestamp']}",
+        f"MDEC Auto-Validator v1.0 ΓÇó {result['timestamp']}",
         "=" * 70,
         ""
     ])
@@ -380,7 +380,7 @@ def main():
     watch_mode = '--watch' in sys.argv
     
     if watch_mode:
-        print(f"🔍 Watching {path} for metadata changes...")
+        print(f"≡ƒöì Watching {path} for metadata changes...")
         print("Press Ctrl+C to stop")
         try:
             while True:
@@ -389,7 +389,7 @@ def main():
                 print(format_report(result))
                 time.sleep(5)  # Check every 5 seconds
         except KeyboardInterrupt:
-            print("\n👋 Stopped watching")
+            print("\n≡ƒæï Stopped watching")
     else:
         validator = MDECAutoValidator(fix_mode=fix_mode)
         result = validator.validate_path(path)

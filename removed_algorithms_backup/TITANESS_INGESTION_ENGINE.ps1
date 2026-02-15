@@ -1,4 +1,4 @@
-# TITANESS Ingestion Engine - MDEC Data Legacy Vault
+﻿# TITANESS Ingestion Engine - MDEC Data Legacy Vault
 # Version: 1.2.0 - Safety Protocol Enhanced
 # Implements: draft-mdec-metadata-excellence-00 (Section 6: Destructive Operations)
 

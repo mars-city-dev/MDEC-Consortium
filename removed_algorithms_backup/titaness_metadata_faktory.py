@@ -1,4 +1,4 @@
-"""
+﻿"""
 Titaness Metadata Faktory - Minimal implementation
 Provides TitanessSentientOS that ingests an asset and emits an engram sidecar
 """

@@ -1,4 +1,4 @@
-# MDEC Implementation Example
+﻿# MDEC Implementation Example
 # This script demonstrates how to implement MDEC standards in your organization
 
 # Step 1: Import MDEC Toolkit
