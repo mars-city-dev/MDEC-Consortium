@@ -247,6 +247,9 @@ def scan_workspace(root_path, target_category_id):
                 
     print(f"\r[COMPLETE] Gentle Scan Finished. Hashed only {total_hashed} files (Saved mechanic wear on {file_count - total_hashed}).")
     return final_grouped_files
+
+def analyze_results(found_files):
+    """
     Analyzes the scan results to find Primary/Secondary copies.
     """
     print("\n----------------------------------------------------------------")
