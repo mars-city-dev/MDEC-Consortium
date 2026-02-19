@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 # TITLE: TITANESS MdEC Inspector (Neural Rover v2.0)
-# DESC:  Advanced Metadata Analysis & Intelligence Tool. 
+# DESC:  Advanced Metadata Analysis & Intelligence Tool.
 #        Focuses on "making sense" of existing data rather than copying it.
 #        Identifies Primary/Secondary/Tertiary duplicates and sorts by age.
 
@@ -80,27 +80,27 @@ def scan_workspace(root_path, target_category_id):
     """
     print(f"\n[SCANNING] Initiating Neural Rover scan on: {root_path} ...")
     print(f"[FILTER]   Looking for Category: {CATEGORIES.get(target_category_id, 'Unknown')}")
-    
+
     found_files = {} # Key: Hash, Value: List of file info dicts
     file_count = 0
     start_time = datetime.datetime.now()
 
     target_extensions = EXT_MAP.get(target_category_id, [])
     # If category 09, we look for anything NOT in the other lists (simplified)
-    
+
     for root, dirs, files in os.walk(root_path):
         # Skip safe zones or heavy folders if needed
         if "node_modules" in dirs: dirs.remove("node_modules")
         if ".git" in dirs: dirs.remove(".git")
-        if "venv" in dirs: dirs.remove("venv") 
+        if "venv" in dirs: dirs.remove("venv")
 
         for file in files:
             name, ext = os.path.splitext(file)
             ext = ext.lower()
-            
+
             # Category Filtering Logic
             current_cat = get_file_category(ext)
-            
+
             # Special handling for "Uncategorized" (09) - catch everything else
             if target_category_id == "09":
                 if current_cat != "09": continue
@@ -114,7 +114,7 @@ def scan_workspace(root_path, target_category_id):
                 created = datetime.datetime.fromtimestamp(stat.st_ctime)
                 modified = datetime.datetime.fromtimestamp(stat.st_mtime)
                 size = stat.st_size
-                
+
                 # Get Hash to identify uniqueness
                 f_hash = get_file_hash(full_path)
                 if not f_hash: continue
@@ -131,7 +131,7 @@ def scan_workspace(root_path, target_category_id):
                     found_files[f_hash].append(file_info)
                 else:
                     found_files[f_hash] = [file_info]
-                    
+
                 file_count += 1
                 if file_count % 100 == 0:
                     print(f"\r[SCANNING] Found {file_count} items...", end="")
@@ -150,11 +150,11 @@ def analyze_results(found_files):
     print("\n----------------------------------------------------------------")
     print("      INTELLIGENCE REPORT: DUPLICATE ANALYSIS                   ")
     print("----------------------------------------------------------------")
-    
+
     total_unique = len(found_files)
     total_files = sum(len(v) for v in found_files.values())
     duplicates = total_files - total_unique
-    
+
     print(f"TOTAL OBJECTS DETECTED: {total_files}")
     print(f"UNIQUE SIGNATURES:      {total_unique}")
     print(f"REDUNDANT COPIES:       {duplicates}")
@@ -177,16 +177,16 @@ def analyze_results(found_files):
         count += 1
         primary = file_list[0]
         date_str = created.strftime("%Y-%m-%d %H:%M:%S")
-        
+
         print(f"[{count:03}] PRIMARY: {primary['name']} ({date_str})")
         print(f"      Location: {primary['path']}")
-        
+
         if len(file_list) > 1:
             print(f"      COPIES DETECTED ({len(file_list)-1}):")
             for i, copy in enumerate(file_list[1:]):
                 copy_date = copy['created'].strftime("%Y-%m-%d %H:%M:%S")
                 print(f"        -> Copy {i+1}: {copy['path']} ({copy_date})")
-        
+
         print("")
         if count >= 50: # Limit output for sanity
             print("... (Listing truncated for brevity) ...")
@@ -195,15 +195,15 @@ def analyze_results(found_files):
 def main():
     clear_screen()
     print_header()
-    
+
     print("Which Universal Category would you like to inspect?")
     print("---------------------------------------------------")
     for cat_id, name in CATEGORIES.items():
         print(f" [{cat_id}] {name}")
     print("---------------------------------------------------")
-    
+
     choice = input("Enter Category ID (01-99) or 'ALL': ").strip()
-    
+
     target_id = choice
     if choice.upper() == 'ALL':
         print("Feature 'ALL' coming in v2.0. Please select a specific category.")
@@ -214,10 +214,10 @@ def main():
         target_id = "09"
 
     print(f"\n[INIT] Inspector loaded. Target: [{target_id}] {CATEGORIES[target_id]}")
-    
+
     # Run the Scan
     found_data = scan_workspace(WORKSPACE_ROOT, target_id)
-    
+
     # Analyze
     analyze_results(found_data)
 
