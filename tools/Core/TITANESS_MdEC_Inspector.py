@@ -4,10 +4,8 @@ import hashlib
 import datetime
 import sys
 from pathlib import Path
-
-# TITLE: TITANESS MdEC Inspector (Neural Rover v2.0)
-# DESC:  Advanced Metadata Analysis & Intelligence Tool.
-#        Focuses on "making sense" of existing data rather than copying it.
+import zipfile
+import time
 #        Identifies Primary/Secondary/Tertiary duplicates and sorts by age.
 
 # CONFIGURATION
@@ -72,6 +70,81 @@ def get_file_category(extension):
     if ext == "":
         return "09" # No extension
     return "09" # Uncategorized
+
+def scan_zip_archive(zip_path, target_category_id):
+    """
+    Gently scans a .zip archive without extracting everything to disk.
+    Reads file headers and streams content for hashing.
+    """
+    print(f"\n[SCANNING] Initiating Neural Rover (Gentle Mode) on: {zip_path} ...")
+    print(f"[FILTER]   Looking for Category: {CATEGORIES.get(target_category_id, 'Unknown')}")
+    
+    found_files = {} 
+    file_count = 0
+    start_time = datetime.datetime.now()
+    
+    try:
+        with zipfile.ZipFile(zip_path, 'r') as z:
+            file_list = z.namelist()
+            print(f"[ARCHIVE]  {len(file_list)} files detected in archive.")
+            
+            for file in file_list:
+                # Gentle processing - slight delay every 500 files to avoid CPU spikes
+                if file_count > 0 and file_count % 500 == 0:
+                    time.sleep(0.1)
+
+                if file.endswith('/'): continue # Skip directories
+                
+                name = os.path.basename(file)
+                _, ext = os.path.splitext(name)
+                ext = ext.lower()
+                
+                # Category Logic
+                current_cat = get_file_category(ext)
+                if target_category_id == "09":
+                    if current_cat != "09": continue
+                elif current_cat != target_category_id:
+                    continue
+                
+                # Metadata (from ZipInfo)
+                info = z.getinfo(file)
+                # Zip timestamps are tuples (Y,M,D,H,M,S)
+                try:
+                    dt = datetime.datetime(*info.date_time)
+                except:
+                    dt = datetime.datetime.now()
+                
+                # Hash Content (Streamed from memory)
+                with z.open(file) as f:
+                    sha256_hash = hashlib.sha256()
+                    while chunk := f.read(4096):
+                        sha256_hash.update(chunk)
+                    f_hash = sha256_hash.hexdigest()
+                
+                file_info = {
+                    "path": f"{zip_path} :: {file}",
+                    "name": name,
+                    "created": dt, # Zips only keep one timestamp usually
+                    "modified": dt,
+                    "size": info.file_size
+                }
+
+                if f_hash in found_files:
+                    found_files[f_hash].append(file_info)
+                else:
+                    found_files[f_hash] = [file_info]
+                    
+                file_count += 1
+                if file_count % 100 == 0:
+                    print(f"\r[SCANNING] Found {file_count} items...", end="")
+                    
+    except zipfile.BadZipFile:
+        print("\n[ERROR] The file is not a valid zip archive or is corrupted.")
+    except Exception as e:
+        print(f"\n[ERROR] An error occurred during zip scanning: {str(e)}")
+
+    print(f"\r[COMPLETE] Found {file_count} items in {(datetime.datetime.now() - start_time).total_seconds():.2f}s.")
+    return found_files
 
 def scan_workspace(root_path, target_category_id):
     """
@@ -212,14 +285,39 @@ def main():
     if target_id not in CATEGORIES:
         print("Invalid Selection. Defaulting to '09' (Uncategorized)")
         target_id = "09"
+    
+    print("\n---------------------------------------------------")
+    print("TARGET LOCATION")
+    print("---------------------------------------------------")
+    print("[1] Scan Entire Workspace (Default)")
+    print("[2] Scan Specific Folder")
+    print("[3] Scan .ZIP Archive (Gentle Mode)")
+    
+    loc_choice = input("Select Option [1-3]: ").strip()
+    
+    scan_root = WORKSPACE_ROOT
+    is_zip = False
+    
+    if loc_choice == '2':
+        custom_path = input("Enter full folder path: ").strip().strip('"')
+        if os.path.exists(custom_path) and os.path.isdir(custom_path):
+            scan_root = custom_path
+        else:
+            print("Invalid folder. Reverting to Workspace Root.")
+            
+    elif loc_choice == '3':
+        zip_path = input("Enter full .zip path: ").strip().strip('"')
+        if os.path.exists(zip_path) and zip_path.lower().endswith('.zip'):
+            scan_root = zip_path
+            is_zip = True
+        else:
+            print("Invalid zip file. Reverting to Workspace Root.")
 
     print(f"\n[INIT] Inspector loaded. Target: [{target_id}] {CATEGORIES[target_id]}")
-
+    print(f"[MODE] Scanning: {scan_root} {'(ZIP ARCHIVE)' if is_zip else ''}")
+    
     # Run the Scan
-    found_data = scan_workspace(WORKSPACE_ROOT, target_id)
-
-    # Analyze
-    analyze_results(found_data)
-
-if __name__ == "__main__":
-    main()
+    if is_zip:
+        found_data = scan_zip_archive(scan_root, target_id)
+    else:
+        found_data = scan_workspace(scan_root, target_id)
