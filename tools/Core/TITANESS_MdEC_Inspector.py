@@ -6,6 +6,11 @@ import sys
 from pathlib import Path
 import zipfile
 import time
+import ctypes
+
+# TITLE: TITANESS MdEC Inspector (Neural Rover v2.0)
+# DESC:  Advanced Metadata Analysis & Intelligence Tool. 
+#        Focuses on "making sense" of existing data rather than copying it.
 #        Identifies Primary/Secondary/Tertiary duplicates and sorts by age.
 
 # CONFIGURATION
@@ -264,6 +269,17 @@ def analyze_results(found_files):
         if count >= 50: # Limit output for sanity
             print("... (Listing truncated for brevity) ...")
             break
+            
+    if count == 0:
+        print("\n[INFO] No files found matching criteria.")
+        try:
+            is_admin = ctypes.windll.shell32.IsUserAnAdmin()
+        except:
+            is_admin = False
+            
+        if not is_admin:
+             print("[HINT] Run in User Mode. Protected files may be hidden.")
+             print("       Try running as Administrator if you expected to see more.")
 
 def main():
     clear_screen()
