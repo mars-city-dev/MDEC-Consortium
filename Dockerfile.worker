@@ -1,0 +1,25 @@
+# TITANESS WORKER CONTAINER
+# "The Lysosome"
+# -----------------------------------------------------------------------------
+# Function: Mass Data Ingestion / Metadata Extraction Swarm Node
+# Base: PowerShell Core on Ubuntu (Small, Fast)
+# -----------------------------------------------------------------------------
+
+FROM mcr.microsoft.com/powershell:lts-ubuntu-22.04
+
+# 1. Environment Configuration
+ENV WORKER_ID=TITANESS-LYSOSOME-01
+WORKDIR /app
+
+# 2. Injection (The DNA)
+COPY TITANESS_INGESTION_WORKER.ps1 ./worker.ps1
+COPY draft-mdec-metadata-excellence-00.txt ./standards.txt
+
+# 3. Volume Definition
+# This is where the 1TB of data will be mounted
+VOLUME ["/data"]
+
+# 4. Activation
+# Default behavior: Run the worker against the /data mount point
+ENTRYPOINT ["pwsh", "-File", "./worker.ps1"]
+CMD ["-RootPath", "/data", "-GenerateManifest", "-LicenseType", "Proprietary"]
