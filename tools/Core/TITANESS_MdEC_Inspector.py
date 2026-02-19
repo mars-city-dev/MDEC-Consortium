@@ -34,7 +34,7 @@ CATEGORIES = {
 
 # EXTENSION MAP (Simplified for the Inspector - The Organizer has the full list)
 EXT_MAP = {
-    "01": [".txt", ".md", ".pdf", ".doc", ".docx", ".epub", ".h", ".c"],
+    "01": [".txt", ".md", ".pdf", ".doc", ".docx", ".epub", ".h", ".c", ".gdoc"],
     "02": [".jpg", ".png", ".gif", ".mp4", ".wav", ".mp3", ".flac"],
     "03": [".json", ".csv", ".xml", ".yaml", ".sql"],
     "04": [".py", ".js", ".ts", ".ps1", ".sh", ".bat", ".html", ".css"],
@@ -55,12 +55,12 @@ def print_header():
     print("      \"Intelligence over Replication\"                           ")
     print("----------------------------------------------------------------")
 
-def get_file_hash(filepath):
-    """Calculates SHA-256 hash of a file for identification."""
+def get_file_hash(filepath, block_size=65536):
+    """Calculates SHA-256 hash. Uses large block size (64KB) for faster IO."""
     try:
         sha256_hash = hashlib.sha256()
         with open(filepath, "rb") as f:
-            for byte_block in iter(lambda: f.read(4096), b""):
+            for byte_block in iter(lambda: f.read(block_size), b""):
                 sha256_hash.update(byte_block)
         return sha256_hash.hexdigest()
     except Exception as e:
@@ -154,75 +154,99 @@ def scan_zip_archive(zip_path, target_category_id):
 def scan_workspace(root_path, target_category_id):
     """
     Scans the workspace for files matching the target category.
-    Returns a dictionary of found files organized by Hash (to find duplicates).
+    Optimized for Speed: Uses File Size as first-pass filter ("Gentle on Drive").
     """
-    print(f"\n[SCANNING] Initiating Neural Rover scan on: {root_path} ...")
+    print(f"\n[SCANNING] Neural Rover (Fast Mode) on: {root_path} ...")
     print(f"[FILTER]   Looking for Category: {CATEGORIES.get(target_category_id, 'Unknown')}")
-
-    found_files = {} # Key: Hash, Value: List of file info dicts
+    
+    # Priority Extensions (Doc types) if Category 01
+    priority_ext = [".md", ".doc", ".docx", ".pdf", ".txt", ".gdoc"] if target_category_id == "01" else []
+    
+    # Stage 1: Collect candidates by size/ext
+    size_map = {} # Key: Size, Value: List of file_info dicts
     file_count = 0
     start_time = datetime.datetime.now()
-
-    target_extensions = EXT_MAP.get(target_category_id, [])
-    # If category 09, we look for anything NOT in the other lists (simplified)
-
+    
     for root, dirs, files in os.walk(root_path):
-        # Skip safe zones or heavy folders if needed
-        if "node_modules" in dirs: dirs.remove("node_modules")
-        if ".git" in dirs: dirs.remove(".git")
-        if "venv" in dirs: dirs.remove("venv")
+        # Neural Rover Optimizations: Skip heavy/irrelevant folders
+        for ignore in ["node_modules", ".git", "venv", "__pycache__", ".vs", "dist", "build"]:
+            if ignore in dirs: dirs.remove(ignore)
 
         for file in files:
             name, ext = os.path.splitext(file)
             ext = ext.lower()
-
+            
             # Category Filtering Logic
             current_cat = get_file_category(ext)
-
-            # Special handling for "Uncategorized" (09) - catch everything else
+            
             if target_category_id == "09":
                 if current_cat != "09": continue
             elif current_cat != target_category_id:
-                continue
+                # If searching for Documents (01), be inclusive of common request
+                if target_category_id == "01" and ext in priority_ext:
+                    pass # Allow it even if `get_file_category` missed it (unlikely but safe)
+                else: 
+                    continue
 
-            # We found a match!
             full_path = os.path.join(root, file)
             try:
                 stat = os.stat(full_path)
-                created = datetime.datetime.fromtimestamp(stat.st_ctime)
-                modified = datetime.datetime.fromtimestamp(stat.st_mtime)
                 size = stat.st_size
-
-                # Get Hash to identify uniqueness
-                f_hash = get_file_hash(full_path)
-                if not f_hash: continue
-
+                created = datetime.datetime.fromtimestamp(stat.st_ctime)
+                
                 file_info = {
                     "path": full_path,
                     "name": file,
                     "created": created,
-                    "modified": modified,
-                    "size": size
+                    "size": size,
+                    "hash": None 
                 }
-
-                if f_hash in found_files:
-                    found_files[f_hash].append(file_info)
+                
+                if size in size_map:
+                    size_map[size].append(file_info)
                 else:
-                    found_files[f_hash] = [file_info]
-
+                    size_map[size] = [file_info]
+                    
                 file_count += 1
-                if file_count % 100 == 0:
-                    print(f"\r[SCANNING] Found {file_count} items...", end="")
+                if file_count % 500 == 0:
+                    print(f"\r[SCANNING] Found {file_count} candidates...", end="")
 
-            except Exception as e:
-                # Permission errors, etc.
+            except Exception:
                 continue
 
-    print(f"\r[COMPLETE] Found {file_count} items in {(datetime.datetime.now() - start_time).total_seconds():.2f}s.")
-    return found_files
-
-def analyze_results(found_files):
-    """
+    print(f"\r[STAGE 1] Found {file_count} candidates in {(datetime.datetime.now() - start_time).total_seconds():.2f}s.")
+    
+    # Stage 2: Verify Duplicates via Hash (Lazy - only if >1 candidate)
+    print("\n[STAGE 2] Verifying integrity (Gentle Hashing)...")
+    
+    final_grouped_files = {} # Key: Hash, Value: List of file_info
+    total_hashed = 0
+    
+    for size, candidates in size_map.items():
+        if len(candidates) == 1:
+            # Single file with this exact size? 99.99% likely unique. 
+            # SKIP HASHING to save drive mechanics.
+            # Use pseudo-hash logic for reporting structure
+            pseudo_hash = f"UNIQUE_SIZE_{size}_{candidates[0]['name']}"
+            final_grouped_files[pseudo_hash] = candidates
+        else:
+            # Collision! Multiple files same size. MUST HASH to be accurate.
+            for f in candidates:
+                try:
+                    f_hash = get_file_hash(f['path'])
+                    if not f_hash: continue
+                    if f_hash in final_grouped_files:
+                        final_grouped_files[f_hash].append(f)
+                    else:
+                        final_grouped_files[f_hash] = [f]
+                    
+                    total_hashed += 1
+                    if total_hashed % 10 == 0:
+                        print(f"\r[HASHING] Validating {total_hashed} collisions...", end="")
+                except: continue
+                
+    print(f"\r[COMPLETE] Gentle Scan Finished. Hashed only {total_hashed} files (Saved mechanic wear on {file_count - total_hashed}).")
+    return final_grouped_files
     Analyzes the scan results to find Primary/Secondary copies.
     """
     print("\n----------------------------------------------------------------")
@@ -337,3 +361,16 @@ def main():
         found_data = scan_zip_archive(scan_root, target_id)
     else:
         found_data = scan_workspace(scan_root, target_id)
+
+    # Analyze
+    analyze_results(found_data)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n[HALT] Neural Rover halted by user command.")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n\n[CRITICAL ERROR] The Inspector encountered an anomaly: {e}")
+        sys.exit(1)
